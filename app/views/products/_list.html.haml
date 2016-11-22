@@ -1,0 +1,19 @@
+%table#product-list
+  %thead
+    %th
+      = t :products_item
+    %th
+      = t :products_description
+    %th
+      = t :products_variant
+    %th
+      = t :products_quantity
+    %th
+      = t :products_available
+    %th
+      = t :products_price
+
+  - list.each do |product|
+    %tr
+      %td= product.name
+      %td= product.description

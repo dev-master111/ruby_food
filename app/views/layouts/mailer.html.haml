@@ -1,0 +1,51 @@
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    / If you delete this meta tag, Half Life 3 will never be released.
+    %meta{:content => "width=device-width", :name => "viewport" }/
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title
+      = Spree::Config[:site_name]
+    = stylesheet_link_tag 'mail/all'
+  %body{:bgcolor => "#FFFFFF" }
+    %table.head-wrap{:bgcolor => "#f2f2f2"}
+      %tr
+        %td
+        %td.header.container
+          .content
+            %table{:bgcolor => "#f2f2f2"}
+              %tr
+                %td
+                  %img{src: ContentConfig.footer_logo.url, width: "144", height: "50"}/
+                %td{:align => "right"}
+                  %h6.collapse
+                    = Spree::Config[:site_name]
+        %td
+
+    %table.body-wrap
+      %tr
+        %td
+        %td.container{:bgcolor => "#FFFFFF"}
+          .content
+            %table
+              %tr
+                %td
+
+                  = yield
+        %td
+
+    %table.footer-wrap
+      %tr
+        %td
+        %td.container
+          .content
+            %table
+              %tr
+                %td{:align => "center"}
+                  %p
+                    %a{:href => "#{ URI.join(spree.root_url, ContentConfig.footer_tos_url).to_s }", :target => "_blank"}
+                      = t :terms_of_service
+                    |
+                    %a{:href => "#{ spree.root_url }"}
+                      = Spree::Config[:site_name]
+                    / | <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
+        %td

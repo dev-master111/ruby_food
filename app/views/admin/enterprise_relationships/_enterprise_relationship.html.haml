@@ -1,0 +1,11 @@
+%tr{"ng-repeat" => "enterprise_relationship in EnterpriseRelationships.enterprise_relationships | keywords:query"}
+  %td {{ enterprise_relationship.parent_name }}
+  %td
+    = t 'admin_entreprise_relationships_permits'
+  %td {{ enterprise_relationship.child_name }}
+  %td
+    %ul
+      %li{"ng-repeat" => "permission in enterprise_relationship.permissions"}
+        to {{ EnterpriseRelationships.permission_presentation(permission.name) }}
+  %td.actions
+    %a.delete-enterprise-relationship.icon-trash.no-text{'ng-click' => 'delete(enterprise_relationship)'}

@@ -1,0 +1,8 @@
+- content_for(:title) do
+  = t :register_title
+
+= inject_spree_api_key
+= inject_available_countries
+= inject_enterprise_attributes
+
+%div{ "ng-controller" => "RegistrationCtrl" }

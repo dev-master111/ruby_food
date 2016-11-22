@@ -1,0 +1,1 @@
+angular.module("admin.utils", ["templates", "ngSanitize"])

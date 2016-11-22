@@ -1,0 +1,26 @@
+%fieldset.alpha.no-border-bottom{ ng: { show: "menu.selected.name=='primary_details'" } }
+  %legend {{menu.selected.label}}
+  = f.field_container :name do
+    = f.label :name
+    %br/
+    = f.text_field :name
+
+  = f.field_container :description do
+    = f.label :description
+    %br/
+    = f.text_field :description
+
+  = f.field_container :on_front_page do
+    = f.label :on_front_page, t(:admin_entreprise_groups_on_front_page)
+    %br/
+    = f.check_box :on_front_page
+
+  = f.field_container :enterprise_ids do
+    = f.label :enterprise_ids, t(:admin_entreprise_groups_entreprise)
+    %br/
+    = f.collection_select :enterprise_ids, @enterprises, :id, :name, {}, {class: "select2 fullwidth", multiple: true}
+
+  = f.field_container :permalink do
+    = f.label :permalink, "Permalink (unique, no spaces)"
+    %br/
+    = f.text_field :permalink

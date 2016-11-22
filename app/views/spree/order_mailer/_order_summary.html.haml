@@ -1,0 +1,50 @@
+%table.order-summary{:width => "100%"}
+  %thead
+    %tr
+      %th{:align => "left"}
+        %h4
+          = t :email_order_summary_item
+      %th{:align => "right", :width => "25%"}
+        %h4
+          = t :email_order_summary_quantity
+      %th{:align => "right", :width => "25%"}
+        %h4
+          = t :email_order_summary_price
+  %tbody
+    - @order.line_items.each do |item|
+      %tr
+        %td
+          = render 'spree/shared/line_item_name', line_item: item
+          %br
+          %small
+            %em= raw(item.variant.product.supplier.name)
+        %td{:align => "right"}
+          = item.quantity
+        %td{:align => "right"}
+          = item.display_amount_with_adjustments
+  %tfoot
+    %tr
+      %td{:align => "right", :colspan => "2"}
+        = t :email_order_summary_subtotal
+      %td{:align => "right"}
+        = display_checkout_subtotal(@order)
+    - checkout_adjustments_for(@order, exclude: [:line_item]).reject{ |a| a.amount == 0 }.reverse_each do |adjustment|
+      %tr
+        %td{:align => "right", :colspan => "2"}
+          = "#{raw(adjustment.label)}:"
+        %td{:align => "right"}
+          = adjustment.display_amount
+    %tr
+      %td{:align => "right", :colspan => "2"}
+        %strong
+          = t :email_order_summary_total
+      %td{:align => "right"}
+        %strong= @order.display_total
+
+    - if @order.total_tax > 0
+      %tr
+        %td{:align => "right", :colspan => "2"}
+          (includes tax):
+        %td{:align => "right"}
+          = display_checkout_tax_total(@order)
+%p &nbsp;

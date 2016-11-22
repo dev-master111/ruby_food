@@ -1,0 +1,28 @@
+%table.social{ :width => "100%" }
+  %tr
+    %td
+      / column 1
+      %table.column{:align => "left"}
+        %tr
+          %td
+            %h5
+              = t :email_social
+            %p.social-icons
+              - if ContentConfig.footer_facebook_url.present?
+                %a.soc-btn.fb{href: ContentConfig.footer_facebook_url}
+                  Facebook
+              - if ContentConfig.footer_twitter_url.present?
+                %a.soc-btn.tw{href: ContentConfig.footer_twitter_url}
+                  Twitter
+              - if ContentConfig.footer_linkedin_url.present?
+                %a.soc-btn.li{href: ContentConfig.footer_linkedin_url}
+                  LinkedIn
+      %table.column{:align => "left"}
+        %tr
+          %td
+            - if ContentConfig.footer_email.present?
+              %h5
+                = t :email_contact
+              %strong
+                = mail_to ContentConfig.footer_email
+      %span.clear

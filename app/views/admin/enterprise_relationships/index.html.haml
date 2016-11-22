@@ -1,0 +1,20 @@
+- content_for :page_title do
+  = t 'admin_entreprise_relationships'
+
+= render 'admin/shared/enterprises_sub_menu'
+
+%div{"ng-app" => "ofn.admin", "ng-controller" => "AdminEnterpriseRelationshipsCtrl"}
+  = render 'data'
+
+  = render 'search_input'
+
+  %table#enterprise-relationships
+    %colgroup
+      %col{ style: "width: 30%" }
+      %col{ style: "width: 5%" }
+      %col{ style: "width: 30%" }
+      %col{ style: "width: 30%" }
+      %col{ style: "width: 5%" }
+    %tbody
+      = render 'form'
+      = render 'enterprise_relationship'

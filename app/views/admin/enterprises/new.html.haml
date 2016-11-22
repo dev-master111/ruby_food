@@ -1,0 +1,15 @@
+= render :partial => 'spree/shared/error_messages', :locals => { :target => @enterprise }
+
+- content_for :page_title do
+  New Enterprise
+
+- content_for :page_actions do
+  %li= button_link_to "Back to enterprises list", main_app.admin_enterprises_path, icon: 'icon-arrow-left'
+
+
+-# Form
+
+= form_for [main_app, :admin, @enterprise], html: { "nav-check" => '', "nav-callback" => '' } do |f|
+  .row
+    .twelve.columns.fullwidth_inputs{ ng: { app: "admin.users" } }
+      = render 'new_form', f: f

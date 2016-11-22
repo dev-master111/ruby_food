@@ -1,0 +1,17 @@
+= f_form_for current_order,
+  html: {name: "checkout",
+    id: "checkout_form",
+    novalidate: true,
+    "ng-submit" => "purchase($event, checkout)"} do |f|
+
+  = inject_available_shipping_methods
+  = inject_available_payment_methods
+
+  = render "checkout/details", f: f
+  = render "checkout/billing", f: f
+  = render "checkout/shipping", f: f
+  = render "checkout/payment", f: f
+  %p
+    %button.button.primary{type: :submit}
+      = t :checkout_send
+    / {{ checkout.$valid }}

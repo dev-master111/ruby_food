@@ -1,0 +1,72 @@
+#product_distributors_field span {
+  display: block;
+}
+
+tbody.odd {
+	tr.product { td { background-color: white; } }
+	tr.variant.odd { td { background-color: lighten(#eff5fc, 3); } }
+	tr.variant.even { td { background-color: white; } }
+}
+tbody.even {
+	tr.product { td { background-color: darken(#eff5fc, 1); } }
+	tr.variant.odd { td { background-color: lighten(#eff5fc, 2); } }
+	tr.variant.even { td { background-color: darken(#eff5fc, 1); } }
+}
+
+tbody tr.product td.actions { background-color: transparent; }
+tbody tr.variant td.actions { background-color: transparent; }
+tbody tr.variant td { padding: 5px 10px; }
+
+th.left-actions, td.left-actions {
+	background-color: transparent !important;
+	border: none !important;
+	border-right: 1px solid #cee1f4 !important;
+}
+
+#status-message {
+  margin: 4px 0px;
+  font-weight: bold;
+}
+
+table#listing_products.bulk {
+  clear: both;
+
+  colgroup col {
+    &.producer {
+      width: 18%;
+    }
+    &.name {
+      width: 18%;
+    }
+    &.unit {
+      width: 14%;
+    }
+    &.display_as {
+      width: 12%;
+    }
+    &.price {
+      width: 10%;
+    }
+    &.on_hand {
+      width: 10%;
+    }
+    &.category {
+      width: 15%;
+    }
+    &.available_on {
+      width: 15%;
+    }
+    &.actions {
+      width: 3%;
+    }
+  }
+
+  td.unit {
+    input, select {
+      width: 100%;
+    }
+    select {
+      margin-bottom: 0.5em;
+    }
+  }
+}

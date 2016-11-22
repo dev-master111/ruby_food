@@ -1,0 +1,40 @@
+= f.fields_for :address do |af|
+  %fieldset.alpha.no-border-bottom{ ng: { show: "menu.selected.name=='contact'" } }
+    %legend {{menu.selected.label}}
+    .row
+      .alpha.three.columns
+        = af.label :phone
+      .omega.eight.columns
+        = af.text_field :phone, { placeholder: t(:admin_entreprise_groups_contact_phone_placeholder)}
+    .row
+      .alpha.three.columns
+        = f.label :email
+      .omega.eight.columns
+        = f.text_field :email
+    .row
+      .three.columns.alpha
+        = af.label :address1
+      .eight.columns.omega
+        = af.text_field :address1, { placeholder: t(:admin_entreprise_groups_contact_address1_placeholder)}
+    .row
+      .alpha.three.columns
+        = af.label :address2
+      .eight.columns.omega
+        = af.text_field :address2
+    .row
+      .three.columns.alpha
+        = af.label :city, t(:admin_entreprise_groups_contact_city)
+        \/
+        = af.label :zipcode, t(:admin_entreprise_groups_contact_zipcode)
+      .four.columns
+        = af.text_field :city, { placeholder: t(:admin_entreprise_groups_contact_city_placeholder)}
+      .four.columns.omega
+        = af.text_field :zipcode, { placeholder: t(:admin_entreprise_groups_contact_zipcode_placeholder)}
+    .row
+      .three.columns.alpha
+        = af.label :state_id, t(:admin_entreprise_groups_contact_state_id)
+        = af.label :country_id, t(:admin_entreprise_groups_contact_country_id)
+      .four.columns
+        = af.collection_select :state_id, af.object.country.states, :id, :name, {}, :class => "select2 fullwidth"
+      .four.columns.omega
+        = af.collection_select :country_id, available_countries, :id, :name, {}, :class => "select2 fullwidth"

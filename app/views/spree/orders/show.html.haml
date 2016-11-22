@@ -1,0 +1,30 @@
+- content_for(:title) do
+  = t :orders_show_title
+
+= inject_enterprise_and_relatives if current_distributor.present?
+
+.darkswarm
+  = render "shopping_shared/details" if current_distributor.present?
+
+  %fieldset#order_summary.footer-pad{"data-hook" => ""}
+    .row
+      .columns.large-12.text-center
+        %h2
+          = t :orders_show_number
+          = " #" + @order.number
+
+    #order{"data-hook" => ""}
+      - if params.has_key? :checkout_complete
+        %h1= t(:thank_you_for_your_order)
+
+      = render 'spree/shared/order_details', order: @order
+
+      .row
+        .columns.large-12
+          = link_to t(:back_to_store), main_app.shop_path, :class => "button"
+          - unless params.has_key? :checkout_complete
+            - if try_spree_current_user && respond_to?(:spree_account_path)
+              = link_to t(:my_account), spree_account_path, :class => "button"
+
+
+= render partial: "shared/footer"

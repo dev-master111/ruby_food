@@ -1,0 +1,49 @@
+- content_for(:title) do
+  = t :groups_title
+
+= inject_enterprises
+
+:javascript
+  angular.module('Darkswarm').value('groups', #{render partial: "json/groups", object: @groups})
+
+#groups.pad-top.footer-pad{"ng-controller" => "GroupsCtrl"}
+  .row
+    .small-12.medium-6.medium-offset-3.columns.text-center
+      %h1
+        = t :groups_headline
+      %p.text
+        = t :groups_text
+  #active-table-search.row.pad-top
+    .small-12.columns
+      %p
+        %input{type: :text,
+        "ng-model" => "query",
+        placeholder: t(:groups_search),
+        "ng-debounce" => "150",
+        "ofn-disable-enter" => true}
+
+  .group.animate-repeat{"ng-repeat" => "group in groups = (Groups.groups | groups:query | orderBy:order)",
+        name: "group{{group.id}}",
+        id: "group{{group.id}}"}
+    .row.pad-top
+      .small-12.medium-6.columns
+        .groups-header
+          %a{"ng-href" => "/groups/{{::group.permalink}}"}
+            %i.ofn-i_035-groups
+            %span.group-name{"ng-bind" => "::group.name"}
+      .small-3.medium-2.columns
+        %p{"ng-bind" => "::group.state"}
+      .small-9.medium-4.columns.groups-icons
+        %p
+          %link-to-service.ofn-i_050-mail-circle{service: '""', ref: 'group.email.split("").reverse().join("")', mailto: true}
+          %link-to-service.ofn-i_049-web{service: '"http://"', ref: 'group.website'}
+          %link-to-service.ofn-i_041-twitter{service: '"http://twitter.com/"', ref: 'group.twitter'}
+          %link-to-service.ofn-i_044-facebook{service: '"https://www.facebook.com/"', ref: 'group.facebook'}
+          %link-to-service.ofn-i_042-linkedin{service: '"https://www.linkedin.com/in/"', ref: 'group.linkedin'}
+          %link-to-service.ofn-i_043-instagram{service: '"http://instagram.com/"', ref: 'group.instagram'}
+
+  .group{"ng-show" => "groups.length == 0"}
+    .row.pad-top
+      = t :groups_no_groups
+
+= render partial: "shared/footer"

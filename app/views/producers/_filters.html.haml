@@ -1,0 +1,23 @@
+.row
+  = render partial: 'shared/components/filter_controls'
+  .small-12.medium-6.columns.text-right
+    &nbsp;
+
+.row.animate-show.filter-row{"ng-show" => "filtersActive"}
+  .small-12.columns
+    .row.filter-box
+      .small-12.columns
+        %h5.tdhead
+          .light
+            = t :producers_filter
+          = t :producers_filter_type
+        %filter-selector.small-block-grid-2.medium-block-grid-4.large-block-grid-6{"selector-set" => "filterSelectors", objects: "producers_to_filter | searchEnterprises:query | taxonsOf", "active-selectors" => "activeTaxons"}
+
+        %h5.tdhead
+          .light
+            = t :producers_filter
+          = t :producers_filter_property
+        .filter-shopfront.property-selectors
+          %single-line-selectors{ selectors: "filterSelectors", objects: "producers_to_filter | searchEnterprises:query | propertiesOf", "active-selectors" => "activeProperties"}
+
+    = render partial: 'shared/components/filter_box'

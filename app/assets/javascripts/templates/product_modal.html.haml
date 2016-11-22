@@ -1,0 +1,26 @@
+.row
+
+  .columns.small-12.large-6.product-header
+    %h3{"ng-bind" => "::product.name"}
+    %span
+      %em {{'products_from' | t}}
+      %span{"ng-bind" => "::enterprise.name"}
+
+    %br
+
+    .filter-shopfront.taxon-selectors.inline-block
+      %filter-selector{ 'selector-set' => "productTaxonSelectors", objects: "[product] | taxonsOf" }
+
+    .filter-shopfront.property-selectors.inline-block
+      %filter-selector{ 'selector-set' => "productPropertySelectors", objects: "[product] | propertiesWithValuesOf" }
+
+    %div{"ng-if" => "product.description"}
+      %hr
+      %p.text-small{"ng-bind" => "::product.description"}
+      %hr
+
+  .columns.small-12.large-6
+    %img.product-img{"ng-src" => "{{::product.largeImage}}", "ng-if" => "::product.largeImage"}
+    %img.product-img.placeholder{ src: "/assets/noimage/large.png", "ng-if" => "::!product.largeImage"}
+
+%ng-include{src: "'partials/close.html'"}

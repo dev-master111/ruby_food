@@ -1,0 +1,58 @@
+%nav.tab-bar.show-for-medium-down
+  %section.left
+    %a.left-off-canvas-toggle.menu-icon
+      %span
+
+  %section.left
+    .ofn-logo
+      %a{href: root_path}
+        %img{src: ContentConfig.logo_mobile.url, srcset: ContentConfig.logo_mobile_svg.url, width: "75", height: "26"}
+
+  %section.right{"ng-cloak" => true}
+    .cart
+      = render partial: "shared/menu/cart"
+    %a{href: main_app.shop_path}
+      {{ CurrentHub.hub.name }}
+
+%aside.left-off-canvas-menu.show-for-medium-down
+  %ul.off-canvas-list
+    %li.ofn-logo
+      %a{href: root_path}
+        %img{src: ContentConfig.logo_mobile.url, srcset: ContentConfig.logo_mobile_svg.url, width: "75", height: "26"}
+    %li.li-menu
+      - if current_page? main_app.shops_path
+        %a{"ofn-scroll-to" => "hubs"}
+          %span.nav-primary
+            %i.ofn-i_019-map-pin
+            = t 'label_shops'
+      - else
+        %a{href: main_app.shops_path}
+          %span.nav-primary
+            %i.ofn-i_019-map-pin
+            = t 'label_shops'
+    %li.li-menu
+      %a{href: main_app.map_path}
+        %span.nav-primary
+          %i.ofn-i_037-map
+          = t 'label_map'
+    %li.li-menu
+      %a{href: main_app.producers_path}
+        %span.nav-primary
+          %i.ofn-i_036-producers
+          = t 'label_producers'
+    %li.li-menu
+      %a{href: "https://openfoodnetwork.org/au/connect/"}
+        %span.nav-primary
+          %i.ofn-i_035-groups
+          = t 'label_connect'
+    %li.li-menu
+      %a{href: "https://openfoodnetwork.org/au/learn/"}
+        %span.nav-primary
+          %i.ofn-i_013-help
+          = t 'label_learn'
+
+    %li
+    - if spree_current_user.nil?
+      = render 'shared/signed_out'
+    - else
+      = render 'shared/signed_in_offcanvas'

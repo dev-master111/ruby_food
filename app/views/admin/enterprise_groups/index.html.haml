@@ -1,0 +1,40 @@
+= content_for :page_title do
+  = t 'admin_entreprise_groups'
+
+- if admin_user?
+  = content_for :page_actions do
+    %li= button_link_to "New Enterprise Group", main_app.new_admin_enterprise_group_path
+
+%table.index#listing_enterprise_groups
+  %thead
+    %tr
+      %th
+        = t 'admin_entreprise_groups_name'
+      - if spree_current_user.admin?
+        %th
+          = t 'admin_entreprise_groups_owner'
+      %th
+        = t 'admin_entreprise_groups_on_front_page'
+      %th
+        = t 'admin_entreprise_groups_entreprise'
+      %th.actions
+
+  %tbody
+    - @enterprise_groups.each do |enterprise_group|
+      %tr
+        %td.name= enterprise_group.name
+        - if spree_current_user.admin?
+          %td= enterprise_group.owner.andand.email || ""
+        %td= enterprise_group.on_front_page ? 'Y' : 'N'
+        %td= enterprise_group.enterprises.map(&:name).join ', '
+        %td.actions
+          = link_to '', main_app.edit_admin_enterprise_group_path(enterprise_group), class: 'edit-enterprise-group icon-edit no-text'
+          = link_to_delete enterprise_group, no_text: true
+
+          - if spree_current_user.admin?
+            - if enterprise_group.last?
+              .blank-action
+            - else
+              = link_to_with_icon 'icon-arrow-down', '', main_app.admin_enterprise_group_move_down_path(enterprise_group), class: 'move-down no-text'
+            - if !enterprise_group.first?
+              = link_to_with_icon 'icon-arrow-up', '', main_app.admin_enterprise_group_move_up_path(enterprise_group), class: 'move-up no-text'

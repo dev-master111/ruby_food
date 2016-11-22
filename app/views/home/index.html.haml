@@ -1,0 +1,23 @@
+:css
+  #tagline:before { background-image: url("#{ContentConfig.home_hero.url}") }
+
+
+%div{"ng-controller" => "HomeCtrl"}
+  = render "shared/menu/alert"
+  = render "home/tagline"
+
+  #panes
+    = render "home/brandstory"
+
+    - if feature? :connect_learn_homepage
+      = render "home/learn"
+      = render "home/connect"
+      = render "home/system"
+    - else
+      = render "home/system"
+      = render "home/cta"
+
+    = render "home/stats"
+
+
+  = render "shared/footer"

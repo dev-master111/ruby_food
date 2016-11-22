@@ -1,0 +1,51 @@
+%nav.top-bar.show-for-large-up{'data-topbar' => true}
+  %section.top-bar-section
+    %ul.left
+      %li.ofn-logo
+        %a{href: root_path}
+          %img{src: ContentConfig.logo.url, width: "250", height: "51"}
+    %ul.center
+      %li
+        %a{href: main_app.shops_path}
+          %span.nav-primary
+            = t 'label_shops'
+      %li
+        %a{href: main_app.map_path}
+          %span.nav-primary
+            = t 'label_map'
+      %li
+        %a{href: main_app.producers_path}
+          %span.nav-primary
+            = t 'label_producers'
+      - if feature? :connect_learn_homepage
+        %li
+          %a{href: "https://openfoodnetwork.org/au/connect/"}
+            %span.nav-primary
+              = t 'label_connect'
+        %li
+          %a{href: "https://openfoodnetwork.org/au/learn/"}
+            %span.nav-primary
+              = t 'label_learn'
+      - else
+        %li
+          %a{href: main_app.groups_path}
+            %span.nav-primary
+              = t 'label_groups'
+        %li
+          %a{href: ContentConfig.footer_about_url}
+            %span.nav-primary
+              = t 'label_about'
+
+    %ul.right
+      - if spree_current_user.nil?
+        = render 'shared/signed_out'
+      - else
+        = render 'shared/signed_in'
+      %li.current_hub{"ng-controller" => "CurrentHubCtrl", "ng-show" => "CurrentHub.hub.id", "ng-cloak" => true}
+        %a{href: main_app.shop_path}
+          %em
+            = t 'label_shopping'
+            &#64;
+          %span.nav-primary.nav-branded {{ CurrentHub.hub.name | truncate:25 }}
+      %li.cart{"ng-cloak" => true}
+        = render partial: "shared/menu/cart"

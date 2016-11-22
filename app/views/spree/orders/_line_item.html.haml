@@ -1,0 +1,40 @@
+%tr.line-item{class: "variant-#{variant.id}"}
+
+  / removed image thumbnail on shopping cart & checkout to simplify
+  / %td.cart-item-image{"data-hook" => "cart_item_image"}
+  /   - if variant.images.length == 0
+  /     = link_to small_image(variant.product), variant.product
+  /   - else
+  /     = link_to image_tag(variant.images.first.attachment.url(:small)), variant.product
+
+  %td.cart-item-description{'data-hook' => "cart_item_description"}
+
+    %div.item-thumb-image{"data-hook" => "cart_item_image"}
+      - if variant.images.length == 0
+        = link_to mini_image(variant.product), variant.product
+      - else
+        = link_to image_tag(variant.images.first.attachment.url(:mini)), variant.product
+
+    = render 'spree/shared/line_item_name', line_item: line_item
+
+    - if @insufficient_stock_lines.include? line_item
+      %span.out-of-stock
+        = variant.in_stock? ? t(:insufficient_stock, :on_hand => variant.on_hand) : t(:out_of_stock)
+        %br/
+
+  %td.text-right.cart-item-price{"data-hook" => "cart_item_price"}
+    = line_item.single_display_amount_with_adjustments.to_html
+    -# Now in a template in app/assets/javascripts/templates !
+    -# %price-breakdown{"price-breakdown" => "_", variant: "variant",
+    -#   "price-breakdown-append-to-body" => "true",
+    -#   "price-breakdown-placement" => "left",
+    -#   "price-breakdown-animation" => true}
+  %td.text-center.cart-item-quantity{"data-hook" => "cart_item_quantity"}
+    = item_form.number_field :quantity, :min => 0, "ofn-on-hand" => variant.on_hand, "ng-model" => "line_item_#{line_item.id}", :class => "line_item_quantity", :size => 5
+  %td.cart-item-total.text-right{"data-hook" => "cart_item_total"}
+    = line_item.display_amount_with_adjustments.to_html unless line_item.quantity.nil?
+
+  %td.cart-item-delete.text-center{"data-hook" => "cart_item_delete"}
+    {{ quantity }}
+    %a.delete{href: "#", id: "delete_#{dom_id(line_item)}"}
+      %i.delete.ofn-i_026-trash

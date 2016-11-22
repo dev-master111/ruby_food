@@ -1,0 +1,30 @@
+- content_for :page_actions do
+  = render 'admin/shared/user_guide_link'
+
+
+%div{ 'ng-app' => 'ofn.admin' }
+  %h1{ :style => 'margin-bottom: 30px' }
+    = t "dashbord"
+
+  - if @enterprises.unconfirmed.any?
+
+    = render partial: "unconfirmed"
+
+    %hr
+
+  - if @enterprises.empty?
+
+    = render partial: "enterprises"
+
+  - else
+
+    - if can? :admin, Spree::Product
+      = render partial: "products"
+
+      %div.two.columns
+        &nbsp;
+
+    - if can? :admin, OrderCycle
+      = render partial: "order_cycles"
+
+    = render partial: "enterprises"

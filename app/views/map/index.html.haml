@@ -1,0 +1,15 @@
+- content_for(:title) do
+  = t :label_map
+
+= inject_enterprises
+
+.map-container{"fill-vertical" => true}
+  %map{"ng-controller" => "MapCtrl"}
+    %google-map{options: "map.additional_options", center: "map.center", zoom: "map.zoom", styles: "map.styles", draggable: "true"}
+      %map-osm-tiles
+      %map-search
+      %markers{models: "OfnMap.enterprises", fit: "true",
+      coords: "'self'", icon: "'icon'", click: "'reveal'"}
+
+.map-footer
+  %a{:href => "http://www.openstreetmap.org/copyright"} &copy; OpenStreetMap contributors
